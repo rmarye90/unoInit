@@ -44,8 +44,10 @@ export default defineConfig({
 })
 `;
 
-    fs.writeFile("/Users/marye/Documents/unoinit/uno.config.ts", data, (err: string) => {
-      if (err) console.log(err);
+    fs.writeFile(__dirname, 'uno.config.ts', data, (err: string) => {
+      if (err) {
+        throw(err);
+      }
       else {
         console.log("File written successfully\n");
         console.log("The written has the following contents:");
