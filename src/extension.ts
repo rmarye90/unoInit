@@ -1,11 +1,13 @@
 import * as vscode from "vscode";
+import { writeFile } from "fs";
+import { join } from "path";
+
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "unoinit" is now active!');
   const disposable = vscode.commands.registerCommand("unoinit.setupuno", () => {
     vscode.window.showInformationMessage("unoCSS is now actived!");
-    const fs = require("fs");
 
-    let data = `
+    const data = `
     import { 
     defineConfig,
     presetAttributify,
@@ -43,16 +45,8 @@ export default defineConfig({
       ],
 })
 `;
-
-    fs.writeFile(__dirname, 'uno.config.ts', data, (err: string) => {
-      if (err) {
-        throw(err);
-      }
-      else {
-        console.log("File written successfully\n");
-        console.log("The written has the following contents:");
-        console.log(fs.readFileSync("books.txt", "utf8"));
-      }
+    writeFile(join(__dirname, "uno.config.ts"), data, () => {
+      console.log(join(__dirname, "uno.config.ts"));
     });
   });
   context.subscriptions.push(disposable);
